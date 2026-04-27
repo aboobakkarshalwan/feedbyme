@@ -177,7 +177,7 @@ exports.updateFeedback = async (req, res, next) => {
       return res.status(403).json({ error: 'Not authorized to update this feedback.' });
     }
 
-    const allowedUpdates = ['title', 'description', 'category', 'priority', 'rating', 'tags', 'isAnonymous'];
+    const allowedUpdates = ['title', 'description', 'category', 'priority', 'rating', 'tags', 'isAnonymous', 'customAnswers'];
     const updates = {};
     allowedUpdates.forEach(field => {
       if (req.body[field] !== undefined) {

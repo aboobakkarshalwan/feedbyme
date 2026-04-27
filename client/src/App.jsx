@@ -18,6 +18,7 @@ import Dashboard from './pages/Dashboard';
 import ProjectBoard from './pages/ProjectBoard';
 import FeedbackNew from './pages/FeedbackNew';
 import FeedbackDetail from './pages/FeedbackDetail';
+import FeedbackEdit from './pages/FeedbackEdit';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
@@ -99,6 +100,7 @@ function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/feedback/:id/edit" element={<FeedbackEdit />} />
 
         {/* Admin routes */}
         <Route element={<AdminRoute />}>
