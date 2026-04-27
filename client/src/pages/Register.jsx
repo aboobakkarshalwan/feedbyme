@@ -39,16 +39,25 @@ export default function Register() {
         padding: '40px', position: 'relative',
       }}>
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 360, textAlign: 'center' }}>
-          <img src="/logo.png" alt="FeedByMe Logo" style={{
-            width: '64px', height: '64px', borderRadius: '4px',
-            margin: '0 auto 24px', border: '2px solid rgba(255,255,255,0.3)'
-          }} />
+          <div style={{
+            width: '64px', height: '64px', borderRadius: '12px',
+            margin: '0 auto 24px', background: 'rgba(255,255,255,0.2)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '2rem', fontWeight: 800, color: '#ffffff',
+            border: '2px solid rgba(255,255,255,0.3)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+          }}>
+            <img src="/logo.png" alt="F" onError={(e) => e.target.style.display = 'none'} style={{
+              width: '100%', height: '100%', objectFit: 'contain'
+            }} />
+            <span style={{ position: 'absolute' }}>F</span>
+          </div>
           <h1 style={{
-            fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800,
-            marginBottom: 12, color: '#ffffff'
+            fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 800,
+            marginBottom: 12, color: '#ffffff', letterSpacing: '-0.02em'
           }}>FeedByMe</h1>
-          <p style={{ fontSize: '1.05rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>
-            Join teams building better products through structured user feedback.
+          <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6 }}>
+            Join 500+ teams building better products through structured user feedback.
           </p>
 
           {/* Stats */}
@@ -99,14 +108,20 @@ export default function Register() {
               { label: 'Password', type: 'password', key: 'password', ph: 'Min. 6 characters', ac: 'new-password' },
               { label: 'Confirm password', type: 'password', key: 'confirmPassword', ph: 'Repeat password', ac: 'new-password' },
             ].map(field => (
-              <div key={field.key} style={{ marginBottom: 20 }}>
+              <div key={field.key} style={{ marginBottom: 16 }}>
                 <label style={{
-                  display: 'block', fontSize: '1rem', fontWeight: 700,
-                  color: 'var(--text-1)', marginBottom: 8
+                  display: 'block', fontSize: '0.9rem', fontWeight: 700,
+                  color: 'var(--text-2)', marginBottom: 6
                 }}>{field.label}</label>
                 <input
                   type={field.type}
                   className="form-input"
+                  style={{ 
+                    padding: '12px', 
+                    borderRadius: '8px', 
+                    fontSize: '0.95rem',
+                    border: '1px solid #d1d5db'
+                  }}
                   placeholder={field.ph}
                   value={form[field.key]}
                   onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}

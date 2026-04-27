@@ -37,15 +37,24 @@ export default function Login() {
         padding: '40px', position: 'relative',
       }}>
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 360, textAlign: 'center' }}>
-          <img src="/logo.png" alt="FeedByMe Logo" style={{
-            width: '64px', height: '64px', borderRadius: '4px',
-            margin: '0 auto 24px', border: '2px solid rgba(255,255,255,0.3)'
-          }} />
+          <div style={{
+            width: '64px', height: '64px', borderRadius: '12px',
+            margin: '0 auto 24px', background: 'rgba(255,255,255,0.2)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '2rem', fontWeight: 800, color: '#ffffff',
+            border: '2px solid rgba(255,255,255,0.3)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
+          }}>
+            <img src="/logo.png" alt="F" onError={(e) => e.target.style.display = 'none'} style={{
+              width: '100%', height: '100%', objectFit: 'contain'
+            }} />
+            <span style={{ position: 'absolute' }}>F</span>
+          </div>
           <h1 style={{
-            fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800,
-            marginBottom: 12, color: '#ffffff'
+            fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 800,
+            marginBottom: 12, color: '#ffffff', letterSpacing: '-0.02em'
           }}>FeedByMe</h1>
-          <p style={{ fontSize: '1.05rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.9)', lineHeight: 1.6 }}>
             Collect, organize, and act on user feedback — all in one place.
           </p>
 
@@ -89,14 +98,20 @@ export default function Login() {
           </p>
 
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: 24 }}>
+            <div style={{ marginBottom: 20 }}>
               <label style={{
-                display: 'block', fontSize: '1rem', fontWeight: 700,
-                color: 'var(--text-1)', marginBottom: 8
+                display: 'block', fontSize: '0.9rem', fontWeight: 700,
+                color: 'var(--text-2)', marginBottom: 6
               }}>Email address</label>
               <input
                 type="email"
                 className="form-input"
+                style={{ 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  fontSize: '0.95rem',
+                  border: '1px solid #d1d5db'
+                }}
                 placeholder="you@company.com"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -106,10 +121,10 @@ export default function Login() {
               />
             </div>
 
-            <div style={{ marginBottom: 28 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                 <label style={{
-                  display: 'block', fontSize: '1rem', fontWeight: 700, color: 'var(--text-1)'
+                  display: 'block', fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-2)'
                 }}>Password</label>
                 <Link to="/forgotpassword" style={{ fontSize: '0.85rem', color: 'var(--accent)', fontWeight: 600 }}>
                   Forgot password?
@@ -118,6 +133,12 @@ export default function Login() {
               <input
                 type="password"
                 className="form-input"
+                style={{ 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  fontSize: '0.95rem',
+                  border: '1px solid #d1d5db'
+                }}
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
