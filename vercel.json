@@ -21,11 +21,23 @@
       "dest": "server/server.js"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "/client/assets/$1"
+    },
+    {
+      "src": "/(.*).js",
+      "dest": "/client/$1.js"
+    },
+    {
+      "src": "/(.*).css",
+      "dest": "/client/$1.css"
+    },
+    {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/client/index.html"
     }
   ]
 }
