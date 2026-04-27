@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import toast from 'react-hot-toast';
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -130,22 +132,37 @@ export default function Login() {
                   Forgot password?
                 </Link>
               </div>
-              <input
-                type="password"
-                className="form-input"
-                style={{ 
-                  padding: '12px', 
-                  borderRadius: '8px', 
-                  fontSize: '0.95rem',
-                  border: '1px solid #d1d5db'
-                }}
-                placeholder="Enter your password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                id="login-password"
-                autoComplete="current-password"
-                required
-              />
+              <div style={{ position: 'relative' }}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="form-input"
+                  style={{ 
+                    padding: '12px', 
+                    paddingRight: '44px',
+                    borderRadius: '8px', 
+                    fontSize: '0.95rem',
+                    border: '1px solid #d1d5db',
+                    width: '100%'
+                  }}
+                  placeholder="Enter your password"
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  id="login-password"
+                  autoComplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute', right: '12px', top: '50%',
+                    transform: 'translateY(-50%)', color: '#9ca3af',
+                    fontSize: '1.2rem', display: 'flex', alignItems: 'center'
+                  }}
+                >
+                  {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                </button>
+              </div>
             </div>
 
             <button

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import toast from 'react-hot-toast';
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -113,22 +115,39 @@ export default function Register() {
                   display: 'block', fontSize: '0.9rem', fontWeight: 700,
                   color: 'var(--text-2)', marginBottom: 6
                 }}>{field.label}</label>
-                <input
-                  type={field.type}
-                  className="form-input"
-                  style={{ 
-                    padding: '12px', 
-                    borderRadius: '8px', 
-                    fontSize: '0.95rem',
-                    border: '1px solid #d1d5db'
-                  }}
-                  placeholder={field.ph}
-                  value={form[field.key]}
-                  onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
-                  id={`register-${field.key}`}
-                  autoComplete={field.ac}
-                  required
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={field.type === 'password' ? (showPassword ? 'text' : 'password') : field.type}
+                    className="form-input"
+                    style={{ 
+                      padding: '12px', 
+                      paddingRight: field.type === 'password' ? '44px' : '12px',
+                      borderRadius: '8px', 
+                      fontSize: '0.95rem',
+                      border: '1px solid #d1d5db',
+                      width: '100%'
+                    }}
+                    placeholder={field.ph}
+                    value={form[field.key]}
+                    onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
+                    id={`register-${field.key}`}
+                    autoComplete={field.ac}
+                    required
+                  />
+                  {field.type === 'password' && (
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute', right: '12px', top: '50%',
+                        transform: 'translateY(-50%)', color: '#9ca3af',
+                        fontSize: '1.2rem', display: 'flex', alignItems: 'center'
+                      }}
+                    >
+                      {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
 

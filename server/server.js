@@ -19,7 +19,7 @@ const app = express();
 // Security middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? process.env.CLIENT_URL : '*',
+  origin: true,
   credentials: true
 }));
 
