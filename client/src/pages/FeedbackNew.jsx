@@ -246,6 +246,22 @@ export default function FeedbackNew() {
                         size="1.5rem"
                       />
                     </div>
+                  ) : field.fieldType === 'multiple_choice' ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}>
+                      {(field.options || []).map((opt, oi) => (
+                        <label key={oi} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '8px 12px', borderRadius: 6, border: form.customAnswers[field.label] === opt ? '2px solid var(--accent)' : '2px solid var(--glass-border)', backgroundColor: form.customAnswers[field.label] === opt ? 'rgba(0,94,162,0.08)' : 'transparent', transition: 'all 0.15s' }}>
+                          <input
+                            type="radio"
+                            name={`mcq-${i}`}
+                            value={opt}
+                            checked={form.customAnswers[field.label] === opt}
+                            onChange={() => handleCustomAnswerChange(field.label, opt)}
+                            style={{ accentColor: 'var(--accent)' }}
+                          />
+                          <span style={{ fontSize: '0.95rem', color: 'var(--text-1)' }}>{opt}</span>
+                        </label>
+                      ))}
+                    </div>
                   ) : field.fieldType === 'textarea' ? (
                     <textarea 
                       className="form-textarea"

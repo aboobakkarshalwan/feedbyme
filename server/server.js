@@ -47,10 +47,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const connectDB = async () => {
   try {
     if (mongoose.connection.readyState >= 1) return;
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 15000,
+      connectTimeoutMS: 15000,
+    });
     console.log('✅ MongoDB connected successfully');
   } catch (err) {
     console.error('❌ MongoDB connection error:', err.message);
+    console.error('💡 TIP: Go to MongoDB Atlas > Network Access > Add your current IP or allow 0.0.0.0/0');
   }
 };
 

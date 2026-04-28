@@ -1,13 +1,19 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
   HiOutlineViewGrid, HiOutlineCollection, HiOutlinePlusCircle,
-  HiOutlineUser, HiOutlineChartBar, HiOutlineUsers
+  HiOutlineUser, HiOutlineChartBar, HiOutlineUsers, HiOutlineLogout
 } from 'react-icons/hi';
 
 export default function Sidebar() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, logout, isAuthenticated } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const mainLinks = [
     { to: '/dashboard', icon: <HiOutlineViewGrid />, text: 'Dashboard' },
@@ -58,6 +64,19 @@ export default function Sidebar() {
             </>
           )}
         </nav>
+
+        {isAuthenticated && (
+          <div style={{ padding: '12px 16px', borderTop: '1px solid var(--glass-border)', marginTop: 'auto' }}>
+            <button
+              onClick={handleLogout}
+              className="sidebar-link"
+              style={{ width: '100%', border: 'none', background: 'none', cursor: 'pointer', color: 'var(--red)', fontWeight: 500 }}
+            >
+              <span className="sidebar-link-icon"><HiOutlineLogout /></span>
+              <span>Logout</span>
+            </button>
+          </div>
+        )}
       </aside>
 
       {/* Mobile bottom nav */}

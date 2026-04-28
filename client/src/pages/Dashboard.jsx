@@ -87,9 +87,27 @@ export default function Dashboard() {
       ...formData,
       customFields: [
         ...formData.customFields,
-        { label: '', fieldType: 'text', required: false }
+        { label: '', fieldType: 'text', required: false, options: [] }
       ]
     });
+  };
+
+  const addOption = (fieldIndex) => {
+    const newFields = [...formData.customFields];
+    newFields[fieldIndex].options = [...(newFields[fieldIndex].options || []), ''];
+    setFormData({ ...formData, customFields: newFields });
+  };
+
+  const updateOption = (fieldIndex, optIndex, value) => {
+    const newFields = [...formData.customFields];
+    newFields[fieldIndex].options[optIndex] = value;
+    setFormData({ ...formData, customFields: newFields });
+  };
+
+  const removeOption = (fieldIndex, optIndex) => {
+    const newFields = [...formData.customFields];
+    newFields[fieldIndex].options = newFields[fieldIndex].options.filter((_, i) => i !== optIndex);
+    setFormData({ ...formData, customFields: newFields });
   };
 
   const updateCustomField = (index, updates) => {
@@ -291,6 +309,7 @@ export default function Dashboard() {
                             <option value="text">Short Text</option>
                             <option value="textarea">Long Text</option>
                             <option value="rating">Rating (1-5)</option>
+                            <option value="multiple_choice">Multiple Choice</option>
                           </select>
                           <label className="flex items-center gap-2" style={{ fontSize: '0.85rem', cursor: 'pointer' }}>
                             <input 
@@ -301,6 +320,30 @@ export default function Dashboard() {
                             Required
                           </label>
                         </div>
+                        {field.fieldType === 'multiple_choice' && (
+                          <div style={{ marginTop: 10, paddingLeft: 8 }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--text-2)', marginBottom: 6 }}>Answer Choices:</div>
+                            {(field.options || []).map((opt, oi) => (
+                              <div key={oi} style={{ display: 'flex', gap: 6, marginBottom: 4, alignItems: 'center' }}>
+                                <span style={{ color: 'var(--text-3)', fontSize: '0.8rem', width: 20 }}>{oi + 1}.</span>
+                                <input
+                                  type="text"
+                                  className="form-input"
+                                  style={{ flex: 1, padding: '4px 8px', fontSize: '0.85rem' }}
+                                  placeholder={`Option ${oi + 1}`}
+                                  value={opt}
+                                  onChange={(e) => updateOption(index, oi, e.target.value)}
+                                />
+                                <button type="button" onClick={() => removeOption(index, oi)} className="btn btn-sm btn-ghost" style={{ color: 'var(--red)', padding: 2, minWidth: 'auto' }}>
+                                  <HiOutlineTrash style={{ fontSize: '0.8rem' }} />
+                                </button>
+                              </div>
+                            ))}
+                            <button type="button" onClick={() => addOption(index)} className="btn btn-sm btn-ghost" style={{ fontSize: '0.75rem', marginTop: 4, padding: '2px 8px' }}>
+                              <HiOutlinePlus style={{ fontSize: '0.7rem' }} /> Add Option
+                            </button>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>

@@ -16,8 +16,9 @@ const projectSchema = new mongoose.Schema({
   },
   customFields: [{
     label: { type: String, required: true },
-    fieldType: { type: String, enum: ['text', 'textarea', 'rating'], default: 'text' },
-    required: { type: Boolean, default: false }
+    fieldType: { type: String, enum: ['text', 'textarea', 'rating', 'multiple_choice'], default: 'text' },
+    required: { type: Boolean, default: false },
+    options: [{ type: String }]
   }],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
